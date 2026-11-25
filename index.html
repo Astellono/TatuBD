@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Паша, с днюхой!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Pacifico&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: дружеский стёб, тепло и громко, как открытка от банды
+   IDEA: лист тату-эскизов (flash sheet) в салоне, где Паша выбирает себе тату
+   PICTURE: олдскульное сердце с лентой «ПАША», ласточки, звёзды, кинжал
+   COLOUR and TYPE: чёрный тату-фон, красный, жёлтый, бирюза; Ruslan Display + Pacifico + Rubik
+   LAYOUT: постер-первый экран, тату-автомат, сертификат-купон, правила, свечи */
+:root{color-scheme:light dark;
+--bg:light-dark(#f7f3ea,#121212);--ink:light-dark(#141414,#f5f1e8);--soft:light-dark(#4a4a4a,#bdb7aa);
+--red:#d62839;--yel:#f6c235;--teal:#16a085;--line:light-dark(#141414,#141414);--card:light-dark(#fff,#1d1d1d)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Rubik,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2{font-family:"Ruslan Display",Impact,sans-serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(44px,8vw,92px)}
+h2{font-size:clamp(32px,4.5vw,52px);margin-bottom:18px}
+.script{font-family:Pacifico,cursive}
+.hero{background:#141414;color:#f5f1e8;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:center}
+.hero h1 span{color:var(--yel);display:block}
+.hero p{font-size:19px;max-width:30ch;color:#d8d2c4}
+.hero .script{color:var(--red);font-size:clamp(26px,3vw,36px);margin:0 0 6px}
+.dots{position:absolute;inset:0;background-image:radial-gradient(#ffffff14 1.5px,transparent 1.5px);background-size:22px 22px;pointer-events:none}
+.flash{width:100%;height:auto;max-height:560px;display:block}
+.btn{font:600 17px Rubik,sans-serif;border:3px solid var(--line);background:var(--yel);color:#141414;padding:12px 22px;border-radius:999px;min-height:48px;cursor:pointer;box-shadow:4px 4px 0 var(--line);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--line)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.hero .btn{border-color:#f5f1e8;box-shadow:4px 4px 0 var(--red)}
+.machine{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+.slot{background:var(--card);border:4px solid var(--line);border-radius:24px;padding:28px;box-shadow:8px 8px 0 var(--red);min-height:230px;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.slot .ico{font-family:"Ruslan Display";font-size:15px;color:var(--soft)}
+.slot .res{font-size:clamp(24px,3vw,32px);font-weight:800;line-height:1.2;margin:10px 0}
+.slot .note{color:var(--soft);font-size:16px}
+.spin .res{animation:shake .08s linear infinite}
+@keyframes shake{50%{transform:translateY(-3px) rotate(-1deg)}}
+.lead{color:var(--soft);max-width:60ch}
+.cert-band{background:var(--teal);color:#fff}
+.cert{max-width:880px;margin:0 auto;background:#fffaf0;color:#141414;border:4px dashed #141414;border-radius:20px;padding:clamp(22px,4vw,44px);position:relative;box-shadow:10px 10px 0 #141414}
+.cert h2{color:var(--red)}
+.cert dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;margin:18px 0}
+.cert dt{font-weight:800}.cert dd{margin:0}
+.stamp{position:absolute;right:clamp(10px,3vw,30px);top:clamp(10px,3vw,26px);width:110px;height:110px;border:4px solid var(--red);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--red);font:800 14px/1.15 Rubik;transform:rotate(14deg);opacity:.9}
+.sign{font-family:Pacifico;font-size:28px;color:#141414}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;list-style:none;padding:0;margin:0;counter-reset:r}
+.rules li{background:var(--card);border:3px solid var(--line);border-radius:18px;padding:20px;position:relative}
+.rules li b{display:block;font-size:19px;margin-bottom:4px}
+.rules li svg{width:46px;height:46px;margin-bottom:8px}
+.cake{text-align:center}
+.cake svg{width:min(320px,80vw);height:auto;display:block;margin:0 auto 18px}
+.flame{transition:opacity .4s,transform .4s;transform-origin:center bottom}
+.out .flame{opacity:0;transform:scaleY(.2)}
+#wish{font-size:20px;font-weight:600;min-height:2em;margin-top:16px}
+footer{background:#141414;color:#bdb7aa;text-align:center;font-size:15px}
+#conf{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media(max-width:760px){.hero .wrap,.machine{grid-template-columns:minmax(0,1fr)}.flash{max-height:400px}.stamp{width:84px;height:84px;font-size:11px}.cert h2{padding-right:80px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="conf"></canvas>
+
+<header class="band hero">
+  <div class="dots"></div>
+  <div class="wrap">
+    <div>
+      <p class="script">С днём рождения,</p>
+      <h1>Паша! <span>Набей себе праздник</span></h1>
+      <p>Мы долго думали, что подарить человеку, у которого всё есть. Решили: пусть будет ещё и на коже.</p>
+      <button class="btn" id="boom">Нажми, именинник</button>
+    </div>
+    <svg class="flash" viewBox="0 0 520 480" role="img" aria-label="Олдскульное тату: сердце с лентой «Паша», ласточки и звёзды">
+      <defs>
+        <g id="star"><path d="M0-22 6-7 22-7 9 3 14 19 0 9-14 19-9 3-22-7-6-7Z" fill="#f6c235" stroke="#141414" stroke-width="4" stroke-linejoin="round"/></g>
+        <g id="bird">
+          <path d="M0 0C30-30 70-34 96-20 70-16 56-6 48 6 70 4 88 14 100 30 70 26 46 30 22 22 10 30-6 34-24 30-10 22-4 12 0 0Z" fill="#1d6fa3" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M-24 30C-6 34 10 30 22 22 6 18-6 12 0 0-10 12-16 22-24 30Z" fill="#d62839" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+          <circle cx="-2" cy="8" r="3" fill="#141414"/>
+        </g>
+      </defs>
+      <g transform="translate(260 250)">
+        <!-- кинжал за сердцем -->
+        <g transform="rotate(-28)">
+          <path d="M-8-190 8-190 10 120 0 160-10 120Z" fill="#e9e4da" stroke="#141414" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M0-180V140" stroke="#9a958b" stroke-width="3"/>
+          <rect x="-42" y="-196" width="84" height="18" rx="8" fill="#f6c235" stroke="#141414" stroke-width="5"/>
+          <rect x="-11" y="-252" width="22" height="58" rx="6" fill="#7a3e1d" stroke="#141414" stroke-width="5"/>
+          <circle cx="0" cy="-262" r="13" fill="#f6c235" stroke="#141414" stroke-width="5"/>
+        </g>
+        <!-- сердце -->
+        <path d="M0 150C-90 90-170 30-170-50-170-120-110-160-60-150-30-144-10-124 0-100 10-124 30-144 60-150 110-160 170-120 170-50 170 30 90 90 0 150Z" fill="#d62839" stroke="#141414" stroke-width="8" stroke-linejoin="round"/>
+        <path d="M-120-90C-110-118-82-128-60-122" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity=".85"/>
+        <path d="M0 130C-70 82-140 30-150-30" fill="none" stroke="#8f1424" stroke-width="10" stroke-linecap="round" opacity=".5"/>
+        <!-- лента -->
+        <path d="M-230-6-190-30-190 40-230 20-206 8Z" fill="#c9bfa8" stroke="#141414" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M230-6 190-30 190 40 230 20 206 8Z" fill="#c9bfa8" stroke="#141414" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M-200-40C-100-20 100-20 200-40L200 30C100 50-100 50-200 30Z" fill="#fffaf0" stroke="#141414" stroke-width="6" stroke-linejoin="round"/>
+        <text x="0" y="18" text-anchor="middle" font-family="Ruslan Display, Impact, sans-serif" font-size="50" fill="#141414" letter-spacing="2">ПАША</text>
+      </g>
+      <use href="#bird" transform="translate(30 70) scale(.9)"/>
+      <use href="#bird" transform="translate(490 70) scale(-.9 .9)"/>
+      <use href="#star" transform="translate(70 420)"/>
+      <use href="#star" transform="translate(455 410) scale(.8)"/>
+      <use href="#star" transform="translate(470 230) scale(.55)"/>
+      <use href="#star" transform="translate(48 250) scale(.6)"/>
+    </svg>
+  </div>
+</header>
+
+<section class="band">
+  <div class="wrap machine">
+    <div>
+      <h2>Тату-автомат</h2>
+      <p class="lead">Подарок у нас серьёзный: деньги на татуировку. А вот что ты на них набьёшь — решит судьба. Крути, пока не выпадет что-то, за что не стыдно перед мамой.</p>
+      <button class="btn" id="spin">Крутить барабан</button>
+    </div>
+    <div class="slot" id="slot" aria-live="polite">
+      <div class="ico">Тебе выпало</div>
+      <div class="res" id="res">Жми кнопку слева</div>
+      <div class="note" id="note">Мастер уже греет машинку</div>
+    </div>
+  </div>
+</section>
+
+<section class="band cert-band">
+  <div class="cert">
+    <div class="stamp">ОПЛАЧЕНО<br>ДРУЗЬЯМИ</div>
+    <h2>Сертификат на тату</h2>
+    <p>Настоящим удостоверяем, что предъявитель этого сертификата Павел официально может пойти и набить себе что угодно. Ну, почти что угодно.</p>
+    <dl>
+      <dt>Номинал</dt><dd>Лежит в конверте. Посчитай сам, мы стеснительные</dd>
+      <dt>Срок действия</dt><dd>Пока не передумаешь (то есть недолго, пожалуйста)</dd>
+      <dt>Место</dt><dd>Любое на теле. Лоб — только по согласованию с нами</dd>
+      <dt>Запрещено</dt><dd>Имена бывших, иероглифы без перевода, наши лица</dd>
+    </dl>
+    <p class="sign">С любовью, твоя банда</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Правила салона</h2>
+    <ul class="rules" id="rules"></ul>
+  </div>
+</section>
+
+<section class="band cake">
+  <div class="wrap">
+    <h2>Загадай тату-желание</h2>
+    <svg id="cake" viewBox="0 0 300 260" role="img" aria-label="Торт со свечами">
+      <rect x="40" y="130" width="220" height="110" rx="16" fill="#d62839" stroke="#141414" stroke-width="6"/>
+      <path d="M40 160c20 18 35-6 55 8s35-8 55 6 35-8 55 6 35-8 55-4" fill="none" stroke="#fffaf0" stroke-width="10" stroke-linecap="round"/>
+      <rect x="20" y="236" width="260" height="16" rx="8" fill="#f6c235" stroke="#141414" stroke-width="5"/>
+      <g id="candles"></g>
+    </svg>
+    <button class="btn" id="blow">Задуть свечи</button>
+    <p id="wish" aria-live="polite"></p>
+  </div>
+</section>
+
+<footer class="band">Сделано с любовью и лёгкой тревогой за твою кожу. С днём рождения, Паша!</footer>
+
+<script>
+{
+const tattoos=[
+ ["Дельфин на щиколотке","Классика курортов 2007 года"],
+ ["Иероглиф «суп»","Ты думал, что это «сила». Это суп"],
+ ["Портрет кота соседа","Кот даже не знает, что он теперь вечен"],
+ ["Надпись «Ни о чём не жалею» с ошибкой","Жалеть будешь, но гордо"],
+ ["Штрихкод на шее","Теперь тебя можно пробить на кассе"],
+ ["Компас на предплечье","Хотя навигатор в телефоне никто не отменял"],
+ ["Якорь","Потому что от тебя не уплыть"],
+ ["Логотип любимой шаурмы","Спонсорство обсуждается"],
+ ["Цитата Стэтхэма","Волк слабее льва, но в цирке не выступает"],
+ ["Сердце с надписью «Мама»","Единственный вариант без рисков. Одобрено"],
+ ["Маленький смайлик за ухом","Минимализм. Мастер сделает за 10 минут, сдачу вернёшь нам"],
+ ["Наша групповая фотка во всю спину","Шутка. Наверное"]
+];
+const rules=[
+ ["Мастера выбирать по портфолио","А не по скидке «два тату по цене одного»","#d62839"],
+ ["Эскиз показать друзьям","Мы честно скажем, если это дельфин","#f6c235"],
+ ["Первые две недели без бани и моря","И не чесать, даже если очень хочется","#16a085"],
+ ["Фото до и после — в общий чат","Это не просьба, это условие сертификата","#1d6fa3"]
+];
+const $=id=>document.getElementById(id);
+$('rules').innerHTML=rules.map(r=>`<li><svg viewBox="0 0 46 46"><g transform="translate(23 24)"><path d="M0-20 5.5-6.5 20-6.5 8.3 2.7 12.7 17.3 0 8.3-12.7 17.3-8.3 2.7-20-6.5-5.5-6.5Z" fill="${r[2]}" stroke="#141414" stroke-width="3" stroke-linejoin="round"/></g></svg><b>${r[0]}</b>${r[1]}</li>`).join('');
+
+// тату-автомат
+let busy=false,last=-1;
+$('spin').addEventListener('click',()=>{
+  if(busy)return;busy=true;const slot=$('slot');slot.classList.add('spin');let n=0;
+  const t=setInterval(()=>{const i=Math.floor(Math.random()*tattoos.length);$('res').textContent=tattoos[i][0];$('note').textContent='…';
+    if(++n>14){clearInterval(t);let k;do{k=Math.floor(Math.random()*tattoos.length)}while(k===last);last=k;
+      $('res').textContent=tattoos[k][0];$('note').textContent=tattoos[k][1];slot.classList.remove('spin');busy=false;burst(40)}},70);
+});
+
+// свечи
+const cg=$('candles');let c='';
+[80,115,150,185,220].forEach((x,i)=>{const col=['#f6c235','#16a085','#fffaf0','#1d6fa3','#f6c235'][i];
+ c+=`<rect x="${x-7}" y="70" width="14" height="62" rx="4" fill="${col}" stroke="#141414" stroke-width="4"/><path class="flame" d="M${x} 36c10 14 12 22 0 30-12-8-10-16 0-30z" fill="#ff9f1c" stroke="#141414" stroke-width="3"/>`});
+cg.innerHTML=c;
+const wishes=["Желание принято. Мастер уже в пути","Пусть тату заживёт быстро, а праздник длится долго","Пусть год будет яркий, как свежий контур","Чтобы ни одна тату не стала поводом для «ну я был молод»"];
+let out=false;
+$('blow').addEventListener('click',()=>{out=!out;$('cake').classList.toggle('out',out);
+  $('blow').textContent=out?'Зажечь снова':'Задуть свечи';
+  $('wish').textContent=out?wishes[Math.floor(Math.random()*wishes.length)]:'';if(out)burst(120)});
+
+$('boom').addEventListener('click',()=>burst(160));
+
+// конфетти
+const cv=$('conf'),cx=cv.getContext('2d');let parts=[],raf=0;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio}
+size();addEventListener('resize',size);
+function burst(n){if(reduce)return;const cols=['#d62839','#f6c235','#16a085','#1d6fa3','#fffaf0'];
+  for(let i=0;i<n;i++)parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.3,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:(6+Math.random()*8)*devicePixelRatio,c:cols[i%5],star:Math.random()<.3});
+  if(!raf)tick()}
+function tick(){cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.y<cv.height+40);
+  for(const p of parts){p.x+=p.vx;p.y+=p.vy*devicePixelRatio;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;
+    if(p.star){cx.beginPath();for(let k=0;k<10;k++){const a=k*Math.PI/5,rr=k%2?p.s*.4:p.s;cx.lineTo(Math.sin(a)*rr,-Math.cos(a)*rr)}cx.fill()}
+    else cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()}
+  raf=parts.length?requestAnimationFrame(tick):0}
+setTimeout(()=>burst(90),400);
+}
+</script>
+</body>
+</html>
